@@ -38,7 +38,7 @@ public class BoardApiController {
     @PostMapping("board/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long id,@RequestBody BoardDTO boardDTO){
         Board findBoard = boardRepository.findById(id).orElse(null);
-        findBoard.updateBoard(boardDTO.getTitle(),boardDTO.getContent(),boardDTO.getAuthor(),boardDTO.getDate());
+        findBoard.updateBoard(boardDTO.getTitle(),boardDTO.getContent(),boardDTO.getAuthor());
         return new ResponseEntity<>(findBoard,HttpStatus.OK);
 
     }

@@ -5,16 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "BOARD")
 @Getter
-public class Board {
+public class Board extends BaseTime{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -27,21 +24,15 @@ public class Board {
     @Column
     private String author;
 
-    @Column
-    private Date date;
 
-    public Board(String title, String content, String author, Date date) {
+    public Board(String title, String content, String author) {
         this.title=title;
         this.content=content;
         this.author=author;
-        this.date=date;
     }
-
-
-    public void updateBoard(String title, String content, String author, Date date) {
+    public void updateBoard(String title, String content, String author) {
         this.title=title;
         this.content=content;
         this.author=author;
-        this.date=date;
     }
 }

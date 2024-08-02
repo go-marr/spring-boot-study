@@ -16,9 +16,7 @@ public class BoardDTO {
 
     private String author;
 
-    private Date date;
-
     public Board toEntity() {
-        return new Board(title,content,author,date);
+        return new Board(title,content,author);
     };
 }
