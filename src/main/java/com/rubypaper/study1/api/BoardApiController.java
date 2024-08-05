@@ -24,30 +24,32 @@ public class BoardApiController {
 
     @GetMapping("/board")
     public ResponseEntity<List<Board>> getBoards(){
-        return boardService.getBoards();
+        return new ResponseEntity<>(boardService.getBoards(), HttpStatus.OK);
     }
 
     @GetMapping("/board/list")
     public ResponseEntity<Page<Board>> getListBoards(@RequestParam(value="page",defaultValue = "0") int page){
-        return boardService.getListBoards(page);
+        return new ResponseEntity<>(boardService.getListBoards(page),HttpStatus.OK);
     }
 
     @PostMapping("/board")
     public ResponseEntity<Board> createBoard(@RequestBody  BoardDTO boardDTO){
         Board board = boardDTO.toEntity();
-        return boardService.save(board);
+        return new ResponseEntity<>(boardService.save(board),HttpStatus.OK);
+
     }
 
     @DeleteMapping("/board/{id}")
     public ResponseEntity<Board> deleteBoard(@PathVariable Long id){
         Board findBoard = boardRepository.findById(id).orElse(null);
-        return boardService.delete(findBoard);
+        boardService.delete(findBoard);
+        return new ResponseEntity<>(findBoard,HttpStatus.OK);
     }
-
+    @Transactional
     @PostMapping("/board/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long id,@RequestBody BoardDTO boardDTO){
         Board findBoard = boardRepository.findById(id).orElse(null);
-        return boardService.update(findBoard,boardDTO);
+        return new ResponseEntity<>(boardService.update(findBoard,boardDTO),HttpStatus.OK);
 
     }
 }

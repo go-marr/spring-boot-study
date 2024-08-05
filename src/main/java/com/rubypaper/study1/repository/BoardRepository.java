@@ -10,7 +10,4 @@ import java.awt.print.Pageable;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board,Long> {
-
-    //Page<Board> findAllBy(Board board, Pageable pageable);
-
 }
