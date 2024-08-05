@@ -2,23 +2,18 @@ package com.rubypaper.study1.api;
 
 import com.rubypaper.study1.domain.Board;
 import com.rubypaper.study1.dto.BoardDTO;
-import com.rubypaper.study1.repository.BoardRepository;
 import com.rubypaper.study1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
 public class BoardApiController {
-    @Autowired
-    private BoardRepository boardRepository;
     @Autowired
     private BoardService boardService;
 
@@ -41,15 +36,13 @@ public class BoardApiController {
 
     @DeleteMapping("/board/{id}")
     public ResponseEntity<Board> deleteBoard(@PathVariable Long id){
-        Board findBoard = boardRepository.findById(id).orElse(null);
-        boardService.delete(findBoard);
-        return new ResponseEntity<>(findBoard,HttpStatus.OK);
+       Board deleteBoard = boardService.delete(id);
+        return new ResponseEntity<>(deleteBoard,HttpStatus.OK);
     }
     @Transactional
     @PostMapping("/board/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long id,@RequestBody BoardDTO boardDTO){
-        Board findBoard = boardRepository.findById(id).orElse(null);
-        return new ResponseEntity<>(boardService.update(findBoard,boardDTO),HttpStatus.OK);
+        return new ResponseEntity<>(boardService.update(id,boardDTO),HttpStatus.OK);
 
     }
 }

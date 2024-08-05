@@ -32,12 +32,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(Board findBoard) {
+    public Board delete(Long id) {
+        Board findBoard = boardRepository.findById(id).orElse(null);
         boardRepository.delete(findBoard);
+        return findBoard;
     }
     @Transactional
-    public Board update(Board updateBoard, BoardDTO boardDTO) {
-        updateBoard.updateBoard(boardDTO.getTitle(),boardDTO.getContent(),boardDTO.getAuthor());
-        return updateBoard;
+    public Board update(Long id, BoardDTO boardDTO) {
+        Board findBoard = boardRepository.findById(id).orElse(null);
+        findBoard.updateBoard(boardDTO.getTitle(),boardDTO.getContent(),boardDTO.getAuthor());
+        return findBoard;
     }
 }
