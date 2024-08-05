@@ -4,7 +4,6 @@ import com.rubypaper.study1.domain.User;
 import com.rubypaper.study1.dto.UserDTO;
 import com.rubypaper.study1.dto.ResponseDTO;
 
-import com.rubypaper.study1.repository.UserRepository;
 import com.rubypaper.study1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +19,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-//    @Autowired
-//    private UserRepository userRepository;
     @Autowired
     private UserService userService;
 
