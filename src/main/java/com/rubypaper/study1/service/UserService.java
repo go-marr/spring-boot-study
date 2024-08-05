@@ -17,28 +17,28 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity<ResponseDTO> save(UserDTO userDTO) {
-        if(!userDTO.getEmail().contains("@"))
-            return  new ResponseEntity<>(new ResponseDTO("@ 없음"), HttpStatus.BAD_GATEWAY);
+    public ResponseDTO save(UserDTO userDTO) {
         User user = userDTO.toEntity();
         userRepository.save(user);
-        return new ResponseEntity<>(new ResponseDTO("저장"),HttpStatus.OK);
+        return new ResponseDTO("저장");
     }
 
-    public ResponseEntity<ResponseDTO> delete(User findUser) {
+    public ResponseDTO delete(Long id) {
+        User findUser = userRepository.findById(id).orElse(null);
         userRepository.delete(findUser);
-        return new ResponseEntity<>(new ResponseDTO("삭제"),HttpStatus.OK);
+        return new ResponseDTO("삭제");
     }
 
 
-    public ResponseEntity<ResponseDTO> update(User findUser,UserDTO userDTO) {
+    public ResponseDTO update(Long id,UserDTO userDTO) {
+        User findUser = userRepository.findById(id).orElse(null);
         findUser.setName(userDTO.getName());
         findUser.setEmail(userDTO.getEmail());
         findUser.setPhone(userDTO.getPhone());
-        return new ResponseEntity<>(new ResponseDTO("수정"),HttpStatus.OK);
+        return new ResponseDTO("수정");
     }
 
-    public ResponseEntity<List<User>> getUsers() {
-        return new ResponseEntity<>(userRepository.findAll(),HttpStatus.OK);
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }
